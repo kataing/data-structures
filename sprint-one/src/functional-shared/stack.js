@@ -15,7 +15,7 @@ stackMethods.push = function(value) {
 }
 
 stackMethods.pop = function() {
-	item = this[Object.keys(this).length - 1];
+	var item = this[Object.keys(this).length - 1];
     delete this[Object.keys(this).length - 1];
     return item;
 }
