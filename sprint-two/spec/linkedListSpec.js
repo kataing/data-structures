@@ -52,4 +52,9 @@ describe('linkedList', function() {
   });
 
   // add more tests here to test the functionality of linkedList
+it('should return false when linkedList is empty and "contains" is called', function() {
+    linkedList.contains(1);
+    expect(linkedList.contains(1)).to.equal(false);
+  });
+
 });
