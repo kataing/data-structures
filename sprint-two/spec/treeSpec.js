@@ -41,4 +41,12 @@ describe('tree', function() {
     expect(tree.contains(8)).to.equal(true);
   });
 
+  // added more tests here to test the functionality of linkedList
+  it('should correctly detect all children when there is more than one value in children', function() {
+    tree.addChild(5);
+    tree.addChild(6);
+    expect(tree.contains(5)).to.equal(true);
+    expect(tree.contains(6)).to.equal(true);
+  });
+
 });
