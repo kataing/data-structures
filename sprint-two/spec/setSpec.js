@@ -24,4 +24,10 @@ describe('set', function() {
     expect(set.contains('Mel Gibson')).to.equal(false);
   });
 
+  // add more tests here to test the functionality
+  it('should return false for a value that was not added', function() {
+    expect(set.contains('Hi There!')).to.equal(false);
+  })
+
+
 });
