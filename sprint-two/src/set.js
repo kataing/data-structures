@@ -23,11 +23,9 @@ setPrototype.remove = function(item) {
 	for(var i = 0; i < this._storage.length; i++) {
 		if(this._storage[i] === item) {
 			if(i === 0) {
-				this._storage = this._storage.slice(1);
-			} else if(i === this._storage.length - 1) {
-				this._storage = this._storage.slice(0, this._storage.length);
+				this._storage.pop();
 			} else {
-				this._storage = this._storage.slice(0, i) + this._storage.slice(i + 1);
+				this._storage = this._storage.splice(i, i);
 			}
 		}
 	}
