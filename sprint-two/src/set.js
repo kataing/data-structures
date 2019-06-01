@@ -27,7 +27,7 @@ setPrototype.remove = function(item) {
 			} else if(i === this._storage.length - 1) {
 				this._storage = this._storage.slice(0, this._storage.length);
 			} else {
-				this._storage = this._storage.slice(0, i) + this._storage.slice(i);
+				this._storage = this._storage.slice(0, i) + this._storage.slice(i + 1);
 			}
 		}
 	}
