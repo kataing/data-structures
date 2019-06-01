@@ -14,29 +14,30 @@ Graph.prototype.contains = function(node) {
 	if(this[node]) {
 		return true;
 	}
-	// for(var i = 0; i < Object.keys(this).length; i++) {
-	// 	if(Object.keys(this)[i] === '' + node) {
-	// 		return true;
-	// 	}
-	// }
 	return false;
 };
 
 // Removes a node from the graph.
 Graph.prototype.removeNode = function(node) {
-	delete this[node];
+	var keys = Object.keys(this);
 
-	for(var i = 0; i < Object.keys(this).length; i++) {
-	    if(this[i] === node) {
-	      if(this[i].length === 0) {
-	        this[i] = [];
-	      } else if(i < Object.keys(this).length) {
-	        this[i] = this[i].slice(0, Object.keys(this).length);
+	for(var i = 0; i < keys.length; i++) {
+		var item = keys[i];
+		var edges = this[item];
+
+		for(var j = 0; j < edges.length; j++) {
+			if(edges[j] === node) {
+	      if(edges.length === 0) {
+	      } else if(edges.length === 1) {
+	        edges.pop();
 	      } else {
-	        this[i] = this[i].slice(0, i) + this[i].slice(i+1, Object.keys(this).length);
+	      	this[keys[i]] = edges.splice(i, i);
 	      }
 	    }
+		}
 	}
+
+	delete this[node];
 };
 
 // Returns a boolean indicating whether two specified nodes are connected.  Pass in the values contained in each of the two nodes.
@@ -47,17 +48,6 @@ Graph.prototype.hasEdge = function(fromNode, toNode) {
 		}
 	}
 	return false;
-
-	// for(var i = 0; i < Object.keys(this).length; i++) {
-	// 	if(Object.keys(this)[i] === '' + fromNode) {
-	// 		for(var j = 0; j < this[Object.keys(this)[i]].length; j++) {
-	// 			if(this[Object.keys(this)[i]][j] === toNode) {
-	// 				return true;
-	// 			}
-	// 		}
-	// 	}
-	// }
-	// return false;
 };
 
 // Connects two nodes in a graph by adding an edge between them.
@@ -68,36 +58,30 @@ Graph.prototype.addEdge = function(fromNode, toNode) {
 
 // Remove an edge between any two specified (by value) nodes.
 Graph.prototype.removeEdge = function(fromNode, toNode) {
-	if(this.hasEdge(fromNode, toNode)) {
-		if(this[fromNode].length === 0) {
-			this[fromNode] = [];
-		} else if(this[toNode].length === 0) {
-			this[toNode] = [];
-		} else {
-			for(var i = 0; i < this[fromNode].length; i++) {
-				if(i < this[fromNode].length) {
-					this[fromNode] = this[fromNode].slice(0, this[fromNode].length);
-				} else {
-					this[fromNode] = this[fromNode].slice(0, i) + this[fromNode].slice(i+1, this[fromNode].length);
-				}
-			}
-			for(var j = 0; j < this[fromNode].length; j++) {
-				if(j < this[toNode].length) {
-					this[toNode] = this[toNode].slice(0, this[toNode].length);
-				} else {
-					this[toNode] = this[toNode].slice(0, i) + this[toNode].slice(i+1, this[toNode].length);
-				}
-			}
-		}
-	} 
 
-	
+	var removeNodeFromEdge = function(edge, removeNode) {
+		if(edge.length !== 0) {
+			for(var i = 0; i < edge.length; i++) {
+				if(edge[i] === removeNode) {
+					if(edge.length === 1) {
+						edge.pop();
+					} else {
+						edge.splice(i, i);
+					}
+				}
+			}
+		}	
+	}
+
+	removeNodeFromEdge(this[toNode], fromNode);
+	removeNodeFromEdge(this[fromNode], toNode);
+
 };
 
 // Pass in a callback which will be executed on each node of the graph.
 Graph.prototype.forEachNode = function(cb) {
 	for(var i = 0; i < Object.keys(this).length; i++) {
-		cb.call(this[i]);
+		cb([Object.keys(this)[i]]);
 	}
 };
 
@@ -110,12 +94,12 @@ var graph = new Graph();
  * Function --> Time Complexity
  *
  * Graph.prototype.addNode --> Constant: O(1)
- * Graph.prototype.contains --> Constant: O(1)	// Previous Solution --> Linear: O(n)
+ * Graph.prototype.contains --> Constant: O(1)
  * Graph.prototype.removeNode --> Linear: O(n)
- * Graph.prototype.hasEdge --> Linear: O(n)		// Previous Solution --> Quadratic: O(n^2)
+ * Graph.prototype.hasEdge --> Linear: O(n)
  * Graph.prototype.addEdge --> Constant: O(1)
- * Graph.prototype.removeEdge --> 
- * Graph.prototype.forEachNode -->
+ * Graph.prototype.removeEdge --> Linear: O(n)
+ * Graph.prototype.forEachNode --> Linear: O(n)
  */
 
 

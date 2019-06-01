@@ -68,4 +68,17 @@ describe('graph', function() {
     expect(graph.hasEdge(3, 5)).to.equal(true);
     expect(graph.hasEdge(5, 5)).to.equal(true);
   });
+
+  // add more tests here to test the functionality
+  it('should remove correct edge when node has more than one edge', function() {
+    graph.addNode(1);
+    graph.addNode(2);
+    graph.addNode(3);
+    graph.addNode(4);
+    graph.addEdge(1,2);
+    graph.addEdge(1,3);
+    graph.addEdge(1,4);
+    graph.removeEdge(1,3);
+    expect(graph.hasEdge(1,3)).to.equal(false);
+  })
 });
