@@ -55,7 +55,7 @@ var binarySearchTree = BinarySearchTree(9);
  * 
  * Function --> Time Complexity
  * 
- * binarySearchMethods.insert --> 
- * binarySearchMethods.contains --> 
- * binarySearchMethods.depthFirstLog --> 
+ * binarySearchMethods.insert --> Logarithmic: Log(n)
+ * binarySearchMethods.contains --> Logarithmic: Log(n)
+ * binarySearchMethods.depthFirstLog --> Linear: O(n)
  */
